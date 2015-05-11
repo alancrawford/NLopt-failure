@@ -15,6 +15,6 @@ include("mUtil2_q.jl")   # Wife's marginal utility wrt q
 include("funs.jl")   
 
 # exports
-doNLopt, doGridSearch, Param
+doNLopt, doGridSearch, Param, objectivef, constraint, utility1, mUtil1_c1, mUtil1_q
 
 end #helloworld

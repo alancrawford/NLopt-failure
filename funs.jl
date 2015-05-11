@@ -45,8 +45,8 @@ end
 #### OPTIMIZATION
 
 function doNLopt()
-	alexTheloudis = Opt(:LD_SLSQP, 3)  # :LN_COBYLA     :LD_SLSQP
-	ftol_rel!(alexTheloudis,1e-10)
+	alexTheloudis = Opt(:LN_COBYLA , 3)  # :LN_COBYLA     :LD_SLSQP
+	ftol_rel!(alexTheloudis,1e-14)
 	lower_bounds!(alexTheloudis,[0.001 ; 0.001 ; 0.001])
 	upper_bounds!(alexTheloudis,[Inf   ; Inf   ; Inf ])
 
@@ -64,9 +64,9 @@ function doNLopt()
 	  println("This is round ",ixr," with total resources = ",resources)
 
 	  max_objective!(alexTheloudis, (x,g) -> objectivef(x, g))
-	  equality_constraint!(alexTheloudis, (x,g) -> constraint(x, g, resources), 1e-6)
-	  @time (fval,x_optimal,return_flag) = optimize(alexTheloudis,[resources/3;resources/3;resources/3])
-
+	  equality_constraint!(alexTheloudis, (x,g) -> constraint(x, g, resources), 1e-14)
+	  @time (fval,x_optimal,return_flag) = optimize(alexTheloudis,[resources/4;resources/3;resources/3])
+	  @show return_flag
 	  println("I got fval=",fval," at ",x_optimal)
 	  println("")
 	end #ixr
